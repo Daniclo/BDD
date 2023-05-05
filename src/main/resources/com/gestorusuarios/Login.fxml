@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gestorusuarios.ControllerLogin">
+   <children>
+      <Label layoutX="200.0" layoutY="137.0" text="Uusario:" />
+      <Label layoutX="190.0" layoutY="179.0" text="Contraseña:" />
+      <TextField fx:id="userField" layoutX="262.0" layoutY="133.0" />
+      <PasswordField fx:id="passField" layoutX="262.0" layoutY="175.0" />
+      <Button layoutX="217.0" layoutY="264.0" mnemonicParsing="false" onAction="#alPulsarLogin" text="Login" />
+      <Button layoutX="302.0" layoutY="264.0" mnemonicParsing="false" onAction="#alPulsarRegistra" text="Registrarse" />
+      <Label fx:id="msg" layoutX="208.0" layoutY="317.0" />
+   </children>
+</AnchorPane>
