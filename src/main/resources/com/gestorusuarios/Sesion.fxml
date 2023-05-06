@@ -14,7 +14,7 @@
       <Label fx:id="permisos" layoutX="431.0" layoutY="23.0" text="Permisos:" />
       <ListView fx:id="verUsuarios" layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
       <Button layoutX="239.0" layoutY="328.0" mnemonicParsing="false" text="Resetear contraseña" />
-      <Button layoutX="122.0" layoutY="328.0" mnemonicParsing="false" text="Cambiar usuario" />
+      <Button layoutX="122.0" layoutY="328.0" mnemonicParsing="false" onAction="#alPulsarCambiarUsuario" text="Cambiar usuario" />
       <Button layoutX="377.0" layoutY="328.0" mnemonicParsing="false" text="Eliminar usuario" />
       <Label layoutX="276.0" layoutY="83.0" text="Usuarios:" />
    </children>
