@@ -1,6 +1,6 @@
 DaniColl,1234,admin
 Dani,112233,user
 Tuputamadre69,11223344,user
-Angel,12345,user
-Juan,123,user
-Samuel,sexo,user
+JuanNegro,12345,user
+Samu,sexo,user
+Bangarang,chachito,user

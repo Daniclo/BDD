@@ -56,16 +56,29 @@ public class ControllerLogin {
             for (int i=0;i<loginData.size();i++){
                 if (loginData.get(i).getUser().equals(userField.getText())){
                     if (loginData.get(i).getPassword().equals(passField.getText())){
-                        User sesion = new User(loginData.get(i).getUser(),loginData.get(i).getPassword(),loginData.get(i).getPermisos());
-                        FXMLLoader loader = new FXMLLoader(App.class.getResource("Sesion.fxml"));
-                        root = loader.load();
-                        ControllerSesion controllerSesion = loader.getController();
-                        controllerSesion.alEntrarConseguirDatos(sesion);
-                        stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                        scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
-                        break;
+                        if (loginData.get(i).getPermisos().equals("admin")){
+                            User sesion = new User(loginData.get(i).getUser(),loginData.get(i).getPassword(),loginData.get(i).getPermisos());
+                            FXMLLoader loader = new FXMLLoader(App.class.getResource("SesionAdmin.fxml"));
+                            root = loader.load();
+                            ControllerSesionAdmin controllerSesionAdmin = loader.getController();
+                            controllerSesionAdmin.alEntrarConseguirDatos(sesion);
+                            stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+                            break;
+                        } else {
+                            User sesion = new User(loginData.get(i).getUser(),loginData.get(i).getPassword(),loginData.get(i).getPermisos());
+                            FXMLLoader loader = new FXMLLoader(App.class.getResource("SesionUser.fxml"));
+                            root = loader.load();
+                            ControllerSesionUser controllerSesionUser = loader.getController();
+                            //Conseguir datos de sesión
+                            stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+                            scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+                            break;
+                        }
                     }else {
                         msg.setStyle("-fx-text-fill: red");
                         msg.setText("Error. Contraseña incorrecta");
