@@ -39,7 +39,7 @@ public class ControllerEdicion {
     private String pass;
     boolean respuesta;
     @FXML
-    protected void confirmar() throws IOException {
+    protected void confirmar() throws IOException { //Falta impedir que puedas borrar tu propio usuario.
         if (infoEdicion.equals("User")){
             user = textoCambios.getText();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

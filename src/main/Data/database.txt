@@ -1,4 +1,4 @@
-DaniColl,1234,admin
+Administrador,1234,admin
 Dani,112233,user
 Tuputamadre69,11223344,user
 JuanNegro,12345,user

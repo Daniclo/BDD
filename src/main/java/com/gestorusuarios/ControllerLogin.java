@@ -72,7 +72,7 @@ public class ControllerLogin {
                             FXMLLoader loader = new FXMLLoader(App.class.getResource("SesionUser.fxml"));
                             root = loader.load();
                             ControllerSesionUser controllerSesionUser = loader.getController();
-                            //Conseguir datos de sesión
+                            controllerSesionUser.alEntrarConseguirDatos(sesion);
                             stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
                             scene = new Scene(root);
                             stage.setScene(scene);
