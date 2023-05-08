@@ -4,11 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.sql.*;
+import java.util.Arrays;
 
 public class App extends Application {
     @Override
@@ -18,47 +16,80 @@ public class App extends Application {
         stage.setTitle("Aplicación");
         stage.setResizable(false);
         stage.setScene(scene);
+
         stage.setOnShown(windowEvent -> {
             windowEvent.consume();
-            try {
-                alAbrirLeerDatos(stage);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            alAbrirLeerDatos(stage);
         });
+
         stage.show();
+
         stage.setOnCloseRequest(windowEvent -> {
             windowEvent.consume();
-            try {
-                alCerrarGuardarDatos(stage);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            alCerrarGuardarDatos(stage);
         });
-    }
-    public void alAbrirLeerDatos(Stage stage) throws IOException {
-        File f = new File("C:\\Users\\Daniel\\IdeaProjects\\GestorUsuarios\\src\\main\\Data\\database.txt");
-        Scanner leeDatos = new Scanner(f);
-        StringTokenizer st;
-        if (leeDatos.hasNextLine()){
-            while (leeDatos.hasNextLine()){
-                st = new StringTokenizer(leeDatos.nextLine(),",");
-                ControllerLogin.loginData.add(new User(st.nextToken(),st.nextToken(),st.nextToken()));
-            }
-            leeDatos.close();
-            stage.show();
-        }
-    }
-    public void alCerrarGuardarDatos(Stage stage) throws IOException {
-        File f = new File("C:\\Users\\Daniel\\IdeaProjects\\GestorUsuarios\\src\\main\\Data\\database.txt");
-        FileWriter guardaDatos = new FileWriter(f);
-        for (int i = 0; i< ControllerLogin.loginData.size(); i++){
-            guardaDatos.write(ControllerLogin.loginData.get(i).getUser() + "," + ControllerLogin.loginData.get(i).getPassword() + "," + ControllerLogin.loginData.get(i).getPermisos() + "\n");
-        }
-        guardaDatos.close();
-        stage.close();
     }
     public static void main(String[] args) {
         launch();
+    }
+
+    public void alAbrirLeerDatos(Stage stage){
+        try {
+            String url = "jdbc:mariadb://localhost:3306/Passwd", user = "root", passwd = "daniel";
+            Connection con = DriverManager.getConnection(url,user,passwd);
+            Statement s = con.createStatement();
+
+
+            ResultSet usuarios = s.executeQuery("select * from Usuario");
+            while (usuarios.next()){
+                ControllerLogin.loginData.add(new User(usuarios.getString("usuario"),usuarios.getString("password"),
+                        usuarios.getString("permisos")));
+            }
+            con.close();
+            stage.show();
+        }catch (SQLException e){
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+    }
+
+    public void alCerrarGuardarDatos(Stage stage) {
+        PreparedStatement ps = null;
+        Connection con = null;
+        try {
+            String url = "jdbc:mariadb://localhost:3306/Passwd";
+            String user = "root";
+            String passwd = "daniel";
+            con = DriverManager.getConnection(url, user, passwd);
+            String query = "insert into Usuario (usuario, password, permisos) values (?, ?, ?)";
+            ps = con.prepareStatement(query);
+            for (int i = 0; i < ControllerLogin.loginData.size(); i++) {
+                String insertUser = ControllerLogin.loginData.get(i).getUser();
+                String insertPass = ControllerLogin.loginData.get(i).getPassword();
+                String insertPermisos = ControllerLogin.loginData.get(i).getPermisos();
+                ps.setString(1, insertUser);
+                ps.setString(2, insertPass);
+                ps.setString(3, insertPermisos);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        } catch (SQLException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar PreparedStatement: " + e.getMessage());
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    System.out.println("Error al cerrar Connection: " + e.getMessage());
+                }
+            }
+            stage.close();
+        }
     }
 }
