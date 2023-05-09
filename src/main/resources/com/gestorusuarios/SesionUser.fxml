@@ -11,5 +11,6 @@
             <Font size="24.0" />
          </font></Label>
       <Label fx:id="permisos" layoutX="448.0" layoutY="23.0" text="Permisos:" />
+      <Button fx:id="logout" layoutX="15.0" layoutY="59.0" mnemonicParsing="false" onAction="#alPulsarLogout" text="Cerrar sesión" />
    </children>
 </AnchorPane>

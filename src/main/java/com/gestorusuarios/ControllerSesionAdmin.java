@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -23,7 +24,6 @@ public class ControllerSesionAdmin implements Initializable{
     private Label permisos;
     @FXML
     private ListView<String> verUsuarios;
-    protected String infoEdicion;
     @FXML
     protected void alEntrarConseguirDatos(User sesion){
         usuario.setText("Usuario: " + sesion.getUser());
@@ -43,7 +43,7 @@ public class ControllerSesionAdmin implements Initializable{
         selectedUser = (selectedItems.isEmpty())?"No Selected Item":selectedItems.toString();
     }
     @FXML
-    protected void alPulsarCambiarUsuario(ActionEvent e) throws IOException {
+    protected void alPulsarCambiarUsuario() throws IOException {
         for (int i=0;i<ControllerLogin.loginData.size();i++){
             if (selectedUser.equals("["+ControllerLogin.loginData.get(i).getUser()+"]")){
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("Edicion.fxml"));
@@ -70,7 +70,7 @@ public class ControllerSesionAdmin implements Initializable{
         }
     }
     @FXML
-    protected void alPulsarResetearPassword(ActionEvent e) throws IOException {
+    protected void alPulsarResetearPassword() throws IOException {
         for (int i=0;i<ControllerLogin.loginData.size();i++){
             if (selectedUser.equals("["+ControllerLogin.loginData.get(i).getUser()+"]")){
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("Edicion.fxml"));
@@ -93,7 +93,7 @@ public class ControllerSesionAdmin implements Initializable{
         }
     }
     @FXML
-    protected void alPulsarEliminarUsuario(ActionEvent e) throws IOException {
+    protected void alPulsarEliminarUsuario() throws IOException {
         for (int i=0;i<ControllerLogin.loginData.size();i++){
             if (selectedUser.equals("["+ControllerLogin.loginData.get(i).getUser()+"]")){
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("Edicion.fxml"));
@@ -117,5 +117,14 @@ public class ControllerSesionAdmin implements Initializable{
                 break;
             }
         }
+    }
+    @FXML
+    protected void alPulsarLogout(ActionEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("Login.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

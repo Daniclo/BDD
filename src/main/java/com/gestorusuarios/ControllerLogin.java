@@ -29,7 +29,7 @@ public class ControllerLogin {
     @FXML
     private Parent root;
     @FXML
-    protected void alPulsarRegistra(ActionEvent e) throws IOException {
+    protected void alPulsarRegistra() {
         if (userField.getText().equals("") || passField.getText().equals("")){
             msg.setStyle("-fx-text-fill: red");
             msg.setText("Error. Rellena ambos campos para proceder.");

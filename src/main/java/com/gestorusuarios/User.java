@@ -5,7 +5,7 @@ import java.util.Objects;
 public class User {
     private String user;
     private String password;
-    private String permisos;
+    private final String permisos;
 
     public User(String user, String password, String permisos) {
         this.user = user;
@@ -31,10 +31,6 @@ public class User {
 
     public String getPermisos() {
         return permisos;
-    }
-
-    public void setPermisos(String permisos) {
-        this.permisos = permisos;
     }
 
     @Override

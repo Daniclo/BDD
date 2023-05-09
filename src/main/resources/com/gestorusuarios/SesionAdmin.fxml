@@ -17,5 +17,6 @@
       <Button layoutX="122.0" layoutY="328.0" mnemonicParsing="false" onAction="#alPulsarCambiarUsuario" text="Cambiar usuario" />
       <Button layoutX="377.0" layoutY="328.0" mnemonicParsing="false" onAction="#alPulsarEliminarUsuario" text="Eliminar usuario" />
       <Label layoutX="276.0" layoutY="83.0" text="Usuarios:" />
+      <Button fx:id="logout" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" onAction="#alPulsarLogout" text="Cerrar sesión" />
    </children>
 </AnchorPane>
